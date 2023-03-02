@@ -84,7 +84,7 @@ fi
 }
 
 function default_settings() {
-  echo -e "${DGN}Using Container Type: ${BGN}Unprivileged${CL} ${RD}NO DEVICE PASSTHROUGH${CL}"
+  echo -e "${DGN}Using Container Type: ${BGN}Privileged${CL}"
   CT_TYPE="0"
   echo -e "${DGN}Using Root Password: ${BGN}Automatic Login${CL}"
   PW=""
