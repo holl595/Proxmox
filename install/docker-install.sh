@@ -27,6 +27,22 @@ DOCKER_LATEST_VERSION=$(get_latest_release "moby/moby")
 PORTAINER_LATEST_VERSION=$(get_latest_release "portainer/portainer")
 DOCKER_COMPOSE_LATEST_VERSION=$(get_latest_release "docker/compose")
 
+if [[ "$CTTYPE" == "0" ]]; then
+  msg_info "Setting Up Hardware Acceleration"
+  $STD apt-get -y install \
+    va-driver-all \
+    ocl-icd-libopencl1 
+  if [[ ${PCT_OSVERSION} == "20.04" ]]; then 
+  $STD apt-get install -y beignet-opencl-icd
+  else
+  $STD apt-get install -y intel-opencl-icd
+  fi
+  /bin/chgrp video /dev/dri
+  /bin/chmod 755 /dev/dri
+  /bin/chmod 660 /dev/dri/*
+  msg_ok "Set Up Hardware Acceleration"
+fi
+
 msg_info "Installing Docker $DOCKER_LATEST_VERSION"
 DOCKER_CONFIG_PATH='/etc/docker/daemon.json'
 mkdir -p $(dirname $DOCKER_CONFIG_PATH)
