@@ -29,13 +29,13 @@ DOCKER_COMPOSE_LATEST_VERSION=$(get_latest_release "docker/compose")
 
 if [[ "$CTTYPE" == "0" ]]; then
   msg_info "Setting Up Hardware Acceleration"
-  $STD apt-get -y install \
+  apt-get -y install \
     va-driver-all \
     ocl-icd-libopencl1 
   if [[ ${PCT_OSVERSION} == "20.04" ]]; then 
-  $STD apt-get install -y beignet-opencl-icd
+  apt-get install -y beignet-opencl-icd
   else
-  $STD apt-get install -y intel-opencl-icd
+  apt-get install -y intel-opencl-icd
   fi
   /bin/chgrp video /dev/dri
   /bin/chmod 755 /dev/dri
